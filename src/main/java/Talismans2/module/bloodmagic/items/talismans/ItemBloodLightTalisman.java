@@ -31,7 +31,10 @@ public class ItemBloodLightTalisman extends ItemBloodTalisman {
 	{
 		return BaubleType.AMULET;
 	}
+    @Override
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
 
+    }
 	@Override
 	public void onUnequipped(ItemStack arg0, EntityLivingBase player)
 	{

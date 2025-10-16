@@ -8,6 +8,7 @@ import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 
+
 /**
  * @author Gigabit101
  */

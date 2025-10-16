@@ -12,7 +12,7 @@ import baubles.api.BaubleType;
  * @author Gigabit101
  */
 
-public class ItemWitherlessTalisman extends ItemTalismanBauble {
+public class    ItemWitherlessTalisman extends ItemTalismanBauble {
 
 	public ItemWitherlessTalisman()
 	{
@@ -27,6 +27,16 @@ public class ItemWitherlessTalisman extends ItemTalismanBauble {
 	{
 		itemIcon = iconRegister.registerIcon("talismans2:Witherless");
 	}
+
+
+    @Override
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
+
+    }
+
+    @Override
+    public void onUnequipped(ItemStack stack, EntityLivingBase player) {
+    }
 
 	@Override
 	// Removes Potion Effect on Tick

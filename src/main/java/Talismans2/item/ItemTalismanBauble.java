@@ -32,13 +32,15 @@ public class ItemTalismanBauble extends Item implements IBauble {
 		this.setMaxStackSize(1);
 
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon(Modinfo.ID.toLowerCase() + ":" + getUnlocalizedName());
 	}
 
-	@Override
+
+
+    @Override
 	public boolean canEquip(ItemStack arg0, EntityLivingBase arg1)
 	{
 		return true;
@@ -50,6 +52,19 @@ public class ItemTalismanBauble extends Item implements IBauble {
 		return true;
 	}
 
+    @Override
+    public void onWornTick(ItemStack arg0, EntityLivingBase arg1)
+    {
+    }
+
+    @Override
+    public void onPlayerLoad(ItemStack arg0, EntityLivingBase arg1) {
+        onEquippedOrLoadedIntoWorld(arg0, arg1);
+    }
+
+
+
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0)
 	{
@@ -59,17 +74,17 @@ public class ItemTalismanBauble extends Item implements IBauble {
 	@Override
 	public void onEquipped(ItemStack arg0, EntityLivingBase arg1)
 	{
+        onEquippedOrLoadedIntoWorld(arg0, arg1);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack arg0, EntityLivingBase arg1)
 	{
 	}
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
+        // NO-OP
+    }
 
-	@Override
-	public void onWornTick(ItemStack arg0, EntityLivingBase arg1)
-	{
-	}
 
 	public boolean isFull3D()
 	{
@@ -115,7 +130,7 @@ public class ItemTalismanBauble extends Item implements IBauble {
 
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer,
 			List par3List, boolean par4)

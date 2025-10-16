@@ -31,8 +31,11 @@ public class ItemBloodInvisibleTalisman extends ItemBloodTalisman {
 	{
 		return BaubleType.AMULET;
 	}
+    @Override
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
 
-	@Override
+    }
+
 	public void onUnequipped(ItemStack arg0, EntityLivingBase player)
 	{
 		player.removePotionEffect(Potion.invisibility.id);

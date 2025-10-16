@@ -33,7 +33,10 @@ public class ItemInvisibleTalisman extends ItemTalismanBauble {
 		}
 
 	}
+    @Override
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
 
+    }
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player)
 	{

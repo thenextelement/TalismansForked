@@ -35,6 +35,8 @@ public class ItemBloodTalisman extends Item implements IBauble, IBindable {
 
 	}
 
+
+
 	@Override
 	public void onEquipped(ItemStack itemStack,
 			EntityLivingBase entityLivingBase)
@@ -42,6 +44,9 @@ public class ItemBloodTalisman extends Item implements IBauble, IBindable {
 
 	}
 
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
+
+    }
 	@Override
 	public void onUnequipped(ItemStack itemStack,
 			EntityLivingBase entityLivingBase)

@@ -35,7 +35,10 @@ public class ItemMovementTalisman extends ItemTalismanBauble {
 					Integer.MAX_VALUE, 1, true));
 		}
 	}
+    @Override
+    public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
 
+    }
 	// Removes Potion effect on Unequip
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player)
 	{
