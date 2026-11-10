@@ -2,6 +2,7 @@ package Talismans2.item;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,8 +14,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import org.lwjgl.input.Keyboard;
-
 import Talismans2.Talismans2;
 import Talismans2.lib.Modinfo;
 import Talismans2.util.Color;
@@ -22,6 +21,8 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Gigabit101
@@ -37,6 +38,7 @@ public class ItemTalismanBauble extends Item implements IBauble {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         itemIcon = iconRegister.registerIcon(Modinfo.ID.toLowerCase() + ":" + getUnlocalizedName());
     }
@@ -148,8 +150,9 @@ public class ItemTalismanBauble extends Item implements IBauble {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+        if (GuiScreen.isShiftKeyDown()) {
             par3List.add(StatCollector.translateToLocal("toolTip1" + iS.getUnlocalizedName()));
 
         } else {
