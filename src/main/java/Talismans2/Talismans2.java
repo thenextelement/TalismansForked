@@ -33,7 +33,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
     name = Modinfo.NAME,
     version = Modinfo.Version,
     dependencies = "required-after:Baubles@:",
-    guiFactory = "Talismans2.gui.TalismanGUIFactory")
+    guiFactory = "Talismans2.client.gui.TalismanGUIFactory")
 public class Talismans2 {
 
     public static ConfigTalismans properties;
