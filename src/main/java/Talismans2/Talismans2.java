@@ -31,8 +31,9 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 @Mod(
     modid = Modinfo.ID,
     name = Modinfo.NAME,
-    version = Modinfo.Version,
-    dependencies = "required-after:Baubles@:",
+    version = Tags.VERSION,
+    acceptedMinecraftVersions = "[1.7.10]",
+    dependencies = "required-after:Baubles",
     guiFactory = "Talismans2.client.gui.TalismanGUIFactory")
 public class Talismans2 {
 
