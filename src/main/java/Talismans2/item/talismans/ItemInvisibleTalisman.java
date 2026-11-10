@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 import Talismans2.Talismans2;
 import Talismans2.item.ItemTalismanBauble;
@@ -25,10 +24,8 @@ public class ItemInvisibleTalisman extends ItemTalismanBauble {
 
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-        if (!player.isPotionActive(Potion.invisibility)) {
-            player.addPotionEffect(new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 1, true));
-        }
-
+        super.onWornTick(itemstack, player);
+        applyEffect(player, Potion.invisibility, 1);
     }
 
     @Override
@@ -38,8 +35,7 @@ public class ItemInvisibleTalisman extends ItemTalismanBauble {
 
     @Override
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-        player.removePotionEffect(Potion.invisibility.id);
-
+        removeEffect(player, Potion.invisibility);
     }
 
     @Override

@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 import Talismans2.Talismans2;
 import Talismans2.item.ItemTalismanBauble;
@@ -27,9 +26,8 @@ public class ItemLightTalisman extends ItemTalismanBauble {
     @Override
     // Returns Potion Effect on Tick
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-        if (!player.isPotionActive(Potion.nightVision)) {
-            player.addPotionEffect(new PotionEffect(Potion.nightVision.id, Integer.MAX_VALUE, 1, true));
-        }
+        super.onWornTick(itemstack, player);
+        applyEffect(player, Potion.nightVision, 1);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class ItemLightTalisman extends ItemTalismanBauble {
 
     // Removes Potion effect on Unequip
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-        player.removePotionEffect(Potion.nightVision.id);
+        removeEffect(player, Potion.nightVision);
     }
 
     @Override

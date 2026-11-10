@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 
 import Talismans2.config.ConfigTalismans;
 import Talismans2.creativeTab.CreativeTabTalismans;
+import Talismans2.handler.LegacyEffectHandler;
 import Talismans2.handler.ModuleHandler;
 import Talismans2.init.DungeonLoot;
 import Talismans2.init.ModItems;
@@ -81,6 +82,9 @@ public class Talismans2 {
         FMLCommonHandler.instance()
             .bus()
             .register(instance);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new LegacyEffectHandler());
 
     }
 

@@ -4,9 +4,9 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 import Talismans2.Talismans2;
+import Talismans2.item.ItemTalismanBauble;
 import Talismans2.module.bloodmagic.items.ItemBloodTalisman;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import baubles.api.BaubleType;
@@ -36,17 +36,15 @@ public class ItemBloodInvisibleTalisman extends ItemBloodTalisman {
     }
 
     public void onUnequipped(ItemStack arg0, EntityLivingBase player) {
-        player.removePotionEffect(Potion.invisibility.id);
+        ItemTalismanBauble.removeEffect(player, Potion.invisibility);
     }
 
     @Override
-    public void onWornTick(ItemStack par1ItemStack, EntityLivingBase player) {
-
-        if (!player.isPotionActive(Potion.invisibility) & SoulNetworkHandler.syphonFromNetwork(par1ItemStack, 15) > 0) {
-            SoulNetworkHandler.syphonFromNetwork(par1ItemStack, 15);
-            player.addPotionEffect(new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 1, true));
-        } else {}
-
+    public void onWornTick(ItemStack stack, EntityLivingBase player) {
+        if (ItemTalismanBauble.needsEffect(player, Potion.invisibility, 1)
+            && SoulNetworkHandler.syphonFromNetwork(stack, 15) > 0) {
+            ItemTalismanBauble.applyEffect(player, Potion.invisibility, 1);
+        }
     }
 
 }

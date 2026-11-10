@@ -8,7 +8,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 
 import Talismans2.item.ItemTalismanBauble;
@@ -75,45 +74,36 @@ public class ItemTalismanRings extends ItemTalismanBauble {
 
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-
-        if (itemstack.getItemDamage() == 2 && !player.isPotionActive(Potion.fireResistance)) {
-            player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, Integer.MAX_VALUE, 1, true));
+        super.onWornTick(itemstack, player);
+        switch (itemstack.getItemDamage()) {
+            case 2 -> applyEffect(player, Potion.fireResistance, 1);
+            case 3 -> applyEffect(player, Potion.invisibility, 1);
+            case 4 -> applyEffect(player, Potion.nightVision, 1);
+            case 5 -> applyEffect(player, Potion.digSpeed, 1);
+            case 6 -> {
+                applyEffect(player, Potion.moveSpeed, 1);
+                applyEffect(player, Potion.jump, 1);
+            }
+            case 7 -> applyEffect(player, Potion.waterBreathing, 1);
+            case 8 -> player.removePotionEffect(Potion.wither.id);
+            default -> {}
         }
-        if (itemstack.getItemDamage() == 3 && !player.isPotionActive(Potion.invisibility)) {
-            player.addPotionEffect(new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 1, true));
-        }
-        if (itemstack.getItemDamage() == 4 && !player.isPotionActive(Potion.nightVision)) {
-            player.addPotionEffect(new PotionEffect(Potion.nightVision.id, Integer.MAX_VALUE, 1, true));
-        }
-        if (itemstack.getItemDamage() == 5 && !player.isPotionActive(Potion.digSpeed)) {
-            player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, Integer.MAX_VALUE, 1, true));
-        }
-        if (itemstack.getItemDamage() == 6 && !player.isPotionActive(Potion.moveSpeed)) {
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 1, true));
-            player.addPotionEffect(new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 1, true));
-        }
-        if (itemstack.getItemDamage() == 7 && !player.isPotionActive(Potion.waterBreathing)) {
-            player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, Integer.MAX_VALUE, 1, true));
-        }
-        if (itemstack.getItemDamage() == 8);
-        player.removePotionEffect(Potion.wither.id);
     }
 
     @Override
     // Removes Potion effect on Unequip
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-        if (itemstack.getItemDamage() == 2) player.removePotionEffect(Potion.fireResistance.id);
-
-        if (itemstack.getItemDamage() == 3) player.removePotionEffect(Potion.invisibility.id);
-
-        if (itemstack.getItemDamage() == 4) player.removePotionEffect(Potion.nightVision.id);
-
-        if (itemstack.getItemDamage() == 5) player.removePotionEffect(Potion.digSpeed.id);
-
-        if (itemstack.getItemDamage() == 6) player.removePotionEffect(Potion.moveSpeed.id);
-        player.removePotionEffect(Potion.jump.id);
-
-        if (itemstack.getItemDamage() == 7) player.removePotionEffect(Potion.waterBreathing.id);
-
+        switch (itemstack.getItemDamage()) {
+            case 2 -> removeEffect(player, Potion.fireResistance);
+            case 3 -> removeEffect(player, Potion.invisibility);
+            case 4 -> removeEffect(player, Potion.nightVision);
+            case 5 -> removeEffect(player, Potion.digSpeed);
+            case 6 -> {
+                removeEffect(player, Potion.moveSpeed);
+                removeEffect(player, Potion.jump);
+            }
+            case 7 -> removeEffect(player, Potion.waterBreathing);
+            default -> {}
+        }
     }
 }

@@ -41,6 +41,7 @@ public class ItemMagnetTalisman extends ItemTalismanBauble {
 
     @Override
     public void onUpdate(ItemStack ist, World world, Entity e, int i, boolean f) {
+        repairStack(ist);
 
         if (ist.getItemDamage() == 0) return;
         EntityPlayer player = null;

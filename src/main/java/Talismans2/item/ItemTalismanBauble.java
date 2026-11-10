@@ -3,10 +3,13 @@ package Talismans2.item;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -48,8 +51,44 @@ public class ItemTalismanBauble extends Item implements IBauble {
         return true;
     }
 
+    // Effects are short and refreshed while worn, so nothing outlives the talisman
+    // (logout, death, a bauble removed without onUnequipped).
+    public static final int EFFECT_DURATION = 400;
+    private static final int EFFECT_REFRESH = 300;
+
+    public static boolean needsEffect(EntityLivingBase player, Potion potion, int amplifier) {
+        if (player.worldObj.isRemote) return false;
+        PotionEffect active = player.getActivePotionEffect(potion);
+        return active == null || (active.getDuration() < EFFECT_REFRESH && active.getAmplifier() <= amplifier);
+    }
+
+    public static void applyEffect(EntityLivingBase player, Potion potion, int amplifier) {
+        if (needsEffect(player, potion, amplifier)) {
+            player.addPotionEffect(new PotionEffect(potion.id, EFFECT_DURATION, amplifier, true));
+        }
+    }
+
+    // Leaves longer effects from other sources alone
+    public static void removeEffect(EntityLivingBase player, Potion potion) {
+        if (player.worldObj.isRemote) return;
+        PotionEffect active = player.getActivePotionEffect(potion);
+        if (active != null && active.getDuration() <= EFFECT_DURATION) player.removePotionEffect(potion.id);
+    }
+
+    // Loot chests used to generate size-0 stacks, which vanish when dropped
+    protected static void repairStack(ItemStack stack) {
+        if (stack != null && stack.stackSize <= 0) stack.stackSize = 1;
+    }
+
     @Override
-    public void onWornTick(ItemStack arg0, EntityLivingBase arg1) {}
+    public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean held) {
+        repairStack(stack);
+    }
+
+    @Override
+    public void onWornTick(ItemStack stack, EntityLivingBase player) {
+        repairStack(stack);
+    }
 
     @Override
     public void onPlayerLoad(ItemStack arg0, EntityLivingBase arg1) {

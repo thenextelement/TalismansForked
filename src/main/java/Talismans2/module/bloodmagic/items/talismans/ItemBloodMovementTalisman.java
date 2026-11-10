@@ -4,9 +4,9 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 import Talismans2.Talismans2;
+import Talismans2.item.ItemTalismanBauble;
 import Talismans2.module.bloodmagic.items.ItemBloodTalisman;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import baubles.api.BaubleType;
@@ -37,21 +37,17 @@ public class ItemBloodMovementTalisman extends ItemBloodTalisman {
 
     @Override
     public void onUnequipped(ItemStack arg0, EntityLivingBase player) {
-        player.removePotionEffect(Potion.moveSpeed.id);
-        player.removePotionEffect(Potion.jump.id);
+        ItemTalismanBauble.removeEffect(player, Potion.moveSpeed);
+        ItemTalismanBauble.removeEffect(player, Potion.jump);
     }
 
     @Override
-    public void onWornTick(ItemStack par1ItemStack, EntityLivingBase player) {
-
-        if (!player.isPotionActive(Potion.moveSpeed) & SoulNetworkHandler.syphonFromNetwork(par1ItemStack, 15) > 0) {
-            SoulNetworkHandler.syphonFromNetwork(par1ItemStack, 15);
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 3, true));
-            player.addPotionEffect(new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 3, true));
-        } else {
-
+    public void onWornTick(ItemStack stack, EntityLivingBase player) {
+        if (ItemTalismanBauble.needsEffect(player, Potion.moveSpeed, 3)
+            && SoulNetworkHandler.syphonFromNetwork(stack, 15) > 0) {
+            ItemTalismanBauble.applyEffect(player, Potion.moveSpeed, 3);
+            ItemTalismanBauble.applyEffect(player, Potion.jump, 3);
         }
-
     }
 
 }
