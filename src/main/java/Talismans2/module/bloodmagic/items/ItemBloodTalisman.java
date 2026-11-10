@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import Talismans2.Talismans2;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
@@ -15,90 +16,70 @@ import baubles.api.IBauble;
 
 public class ItemBloodTalisman extends Item implements IBauble, IBindable {
 
-	public ItemBloodTalisman()
-	{
-		super();
-		this.setMaxStackSize(1);
-		this.setCreativeTab(Talismans2.tabsTalismans);
-	}
+    public ItemBloodTalisman() {
+        super();
+        this.setMaxStackSize(1);
+        this.setCreativeTab(Talismans2.tabsTalismans);
+    }
 
-	@Override
-	public BaubleType getBaubleType(ItemStack itemStack)
-	{
-		return null;
-	}
+    @Override
+    public BaubleType getBaubleType(ItemStack itemStack) {
+        return null;
+    }
 
-	@Override
-	public void onWornTick(ItemStack itemStack,
-			EntityLivingBase entityLivingBase)
-	{
+    @Override
+    public void onWornTick(ItemStack itemStack, EntityLivingBase entityLivingBase) {
 
-	}
+    }
 
+    @Override
+    public void onEquipped(ItemStack itemStack, EntityLivingBase entityLivingBase) {
 
-
-	@Override
-	public void onEquipped(ItemStack itemStack,
-			EntityLivingBase entityLivingBase)
-	{
-
-	}
+    }
 
     public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
 
     }
-	@Override
-	public void onUnequipped(ItemStack itemStack,
-			EntityLivingBase entityLivingBase)
-	{
 
-	}
+    @Override
+    public void onUnequipped(ItemStack itemStack, EntityLivingBase entityLivingBase) {
 
-	@Override
-	public boolean canEquip(ItemStack itemStack,
-			EntityLivingBase entityLivingBase)
-	{
-		if (itemStack.hasTagCompound()) {
-			return true;
+    }
 
-		}
-		return false;
-	}
+    @Override
+    public boolean canEquip(ItemStack itemStack, EntityLivingBase entityLivingBase) {
+        if (itemStack.hasTagCompound()) {
+            return true;
 
-	@Override
-	public boolean canUnequip(ItemStack itemStack,
-			EntityLivingBase entityLivingBase)
-	{
-		return true;
-	}
+        }
+        return false;
+    }
 
-	public boolean isFull3D()
-	{
-		return true;
-	}
+    @Override
+    public boolean canUnequip(ItemStack itemStack, EntityLivingBase entityLivingBase) {
+        return true;
+    }
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
-			EntityPlayer par3EntityPlayer)
-	{
+    public boolean isFull3D() {
+        return true;
+    }
 
-		if (par3EntityPlayer.isSneaking()) {
-			SoulNetworkHandler.checkAndSetItemOwner(par1ItemStack,
-					par3EntityPlayer);
-		}
+    @Override
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 
-		return par1ItemStack;
-	}
+        if (par3EntityPlayer.isSneaking()) {
+            SoulNetworkHandler.checkAndSetItemOwner(par1ItemStack, par3EntityPlayer);
+        }
 
-	@Override
-	public void addInformation(ItemStack iS, EntityPlayer eP, List list,
-			boolean par4)
-	{
-		if (iS.hasTagCompound()) {
-			list.add("");
-			list.add("Current owner: "
-					+ iS.stackTagCompound.getString("ownerName"));
-		}
+        return par1ItemStack;
+    }
 
-	}
+    @Override
+    public void addInformation(ItemStack iS, EntityPlayer eP, List list, boolean par4) {
+        if (iS.hasTagCompound()) {
+            list.add("");
+            list.add("Current owner: " + iS.stackTagCompound.getString("ownerName"));
+        }
+
+    }
 }

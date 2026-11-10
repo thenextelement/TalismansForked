@@ -8,19 +8,16 @@ import Talismans2.config.ConfigTalismans;
 
 public class BotaniaModule {
 
-	public static void init(ConfigTalismans properties)
-	{
-		if (properties.BotaniaModuleTrue)
-			Botaniainit();
+    public static void init(ConfigTalismans properties) {
+        if (properties.BotaniaModuleTrue) Botaniainit();
 
-	}
+    }
 
-	public static void Botaniainit()
-	{
-		BotaniaRecipes.init();
+    public static void Botaniainit() {
+        BotaniaRecipes.init();
 
-		BotaniaLexicon.init();
+        BotaniaLexicon.init();
 
-	}
+    }
 
 }

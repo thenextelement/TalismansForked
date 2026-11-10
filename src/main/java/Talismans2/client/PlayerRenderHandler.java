@@ -18,64 +18,61 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class PlayerRenderHandler {
-	public static EntityPlayer player;
 
-	public static void initialize()
-	{
-		PlayerRenderHandler playerRenderHandler = new PlayerRenderHandler();
-		FMLCommonHandler.instance().bus().register(playerRenderHandler);
-		MinecraftForge.EVENT_BUS.register(playerRenderHandler);
-	}
+    public static EntityPlayer player;
 
-	private int clientTickCount;
+    public static void initialize() {
+        PlayerRenderHandler playerRenderHandler = new PlayerRenderHandler();
+        FMLCommonHandler.instance()
+            .bus()
+            .register(playerRenderHandler);
+        MinecraftForge.EVENT_BUS.register(playerRenderHandler);
+    }
 
-	@SubscribeEvent
-	public void onClientTick(TickEvent.ClientTickEvent event)
-	{
-		if (event.phase == TickEvent.Phase.START)
-			return;
-		clientTickCount++;
-	}
+    private int clientTickCount;
 
-	@SubscribeEvent
-	public void onRenderLiving(RenderLivingEvent.Specials.Post event)
-	{
-		if (!(event.entity instanceof EntityPlayer))
-			return;
-		ItemStack iS = TalismanStacks.talismanFlame;
-		Minecraft mc = Minecraft.getMinecraft();
-		IIcon icon = ModItems.FlameTalisman.getIconFromDamage(0); // This can
+    @SubscribeEvent
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) return;
+        clientTickCount++;
+    }
 
-		// changed to
-		// whatever you
-		// want
+    @SubscribeEvent
+    public void onRenderLiving(RenderLivingEvent.Specials.Post event) {
+        if (!(event.entity instanceof EntityPlayer)) return;
+        ItemStack iS = TalismanStacks.talismanFlame;
+        Minecraft mc = Minecraft.getMinecraft();
+        IIcon icon = ModItems.FlameTalisman.getIconFromDamage(0); // This can
 
-		mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
-		// mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-		// Uncomment this if using a block texture
+        // changed to
+        // whatever you
+        // want
 
-		final float yOffset = 0.65F; // Adjusts how far above the player to
-										// render
-		final float spinModifier = 30F; // Controls how fast the texture spins.
-										// Lower number equals faster spin
+        mc.getTextureManager()
+            .bindTexture(TextureMap.locationItemsTexture);
+        // mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        // Uncomment this if using a block texture
 
-		float spin = (((float) clientTickCount) / spinModifier)
-				* (180F / (float) Math.PI);
+        final float yOffset = 0.65F; // Adjusts how far above the player to
+                                     // render
+        final float spinModifier = 30F; // Controls how fast the texture spins.
+                                        // Lower number equals faster spin
 
-		GL11.glPushMatrix();
+        float spin = (((float) clientTickCount) / spinModifier) * (180F / (float) Math.PI);
 
-		GL11.glTranslatef((float) event.x + 0.0F, (float) event.y
-				+ event.entity.height + yOffset, (float) event.z);
-		GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+        GL11.glPushMatrix();
 
-		GL11.glRotatef(spin, 0, 1, 0);
+        GL11.glTranslatef((float) event.x + 0.0F, (float) event.y + event.entity.height + yOffset, (float) event.z);
+        GL11.glNormal3f(0.0F, 1.0F, 0.0F);
 
-		GL11.glScaled(0.5, 0.5, 0.5);
+        GL11.glRotatef(spin, 0, 1, 0);
 
-		RendererUtil.renderItemIn3d(iS);
+        GL11.glScaled(0.5, 0.5, 0.5);
 
-		GL11.glPopMatrix();
+        RendererUtil.renderItemIn3d(iS);
 
-	}
+        GL11.glPopMatrix();
+
+    }
 
 }

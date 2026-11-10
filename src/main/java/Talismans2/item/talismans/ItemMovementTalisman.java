@@ -5,51 +5,47 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+
 import Talismans2.Talismans2;
 import Talismans2.item.ItemTalismanBauble;
 import baubles.api.BaubleType;
 
 public class ItemMovementTalisman extends ItemTalismanBauble {
 
-	public ItemMovementTalisman()
-	{
-		super();
-		this.setUnlocalizedName("Movement Talisman");
-		this.setCreativeTab(Talismans2.tabsTalismans);
-	}
+    public ItemMovementTalisman() {
+        super();
+        this.setUnlocalizedName("Movement Talisman");
+        this.setCreativeTab(Talismans2.tabsTalismans);
+    }
 
-	@Override
-	public void registerIcons(IIconRegister iconRegister)
-	{
-		itemIcon = iconRegister.registerIcon("talismans2:Movement");
-	}
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        itemIcon = iconRegister.registerIcon("talismans2:Movement");
+    }
 
-	@Override
-	// Returns Potion Effect on Tick
-	public void onWornTick(ItemStack itemstack, EntityLivingBase player)
-	{
-		if (!player.isPotionActive(Potion.moveSpeed)) {
-			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,
-					Integer.MAX_VALUE, 1, true));
-			player.addPotionEffect(new PotionEffect(Potion.jump.id,
-					Integer.MAX_VALUE, 1, true));
-		}
-	}
+    @Override
+    // Returns Potion Effect on Tick
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+        if (!player.isPotionActive(Potion.moveSpeed)) {
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 1, true));
+            player.addPotionEffect(new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 1, true));
+        }
+    }
+
     @Override
     public void onEquippedOrLoadedIntoWorld(ItemStack arg0, EntityLivingBase arg1) {
 
     }
-	// Removes Potion effect on Unequip
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player)
-	{
-		player.removePotionEffect(Potion.moveSpeed.id);
-		player.removePotionEffect(Potion.jump.id);
-	}
 
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0)
-	{
-		return BaubleType.AMULET;
-	}
+    // Removes Potion effect on Unequip
+    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+        player.removePotionEffect(Potion.moveSpeed.id);
+        player.removePotionEffect(Potion.jump.id);
+    }
+
+    @Override
+    public BaubleType getBaubleType(ItemStack arg0) {
+        return BaubleType.AMULET;
+    }
 
 }
